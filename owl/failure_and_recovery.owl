@@ -1,0 +1,673 @@
+Prefix(:=<http://www.ease-crc.org/ont/failure_and_recovery.owl#>)
+Prefix(DUL:=<http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(EASE:=<http://www.ease-crc.org/ont/EASE.owl#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.ease-crc.org/ont/failure_and_recovery.owl>
+Import(<http://www.ontologydesignpatterns.org/ont/dul/DUL.owl>)
+
+Declaration(Class(:ActuatorFailure))
+Declaration(Class(:AgentiveParticipant))
+Declaration(Class(:ArmFailure))
+Declaration(Class(:AttemptAlternativeAction))
+Declaration(Class(:BatteryFailure))
+Declaration(Class(:BodyFailure))
+Declaration(Class(:BodyPartFailure))
+Declaration(Class(:CapabilityAbsenceFailure))
+Declaration(Class(:CapabilityDepletionFailure))
+Declaration(Class(:CollisionWithFixedObject))
+Declaration(Class(:CollisionWithMovableObject))
+Declaration(Class(:CommunicationOrCognitionFailure))
+Declaration(Class(:ConfigurationNotReached))
+Declaration(Class(:ElectricalFailure))
+Declaration(Class(:EnactedPlan))
+Declaration(Class(:EndEffectorFailure))
+Declaration(Class(:ExecutionPhaseFailure))
+Declaration(Class(:FailedPlanExecution))
+Declaration(Class(:Failure))
+Declaration(Class(:FailureDiagnosis))
+Declaration(Class(:FailureExplanation))
+Declaration(Class(:FailureNarrative))
+Declaration(Class(:FailureNarrativeRole))
+Declaration(Class(:FeasiblePlanExecution))
+Declaration(Class(:FinishedFailure))
+Declaration(Class(:GeometricFailureDiagnosis))
+Declaration(Class(:HardPlanningProblem))
+Declaration(Class(:HeadFailure))
+Declaration(Class(:IgnoreFailure))
+Declaration(Class(:IllPosedGoalFailure))
+Declaration(Class(:LocomotorFailure))
+Declaration(Class(:MechanicalFailure))
+Declaration(Class(:MotionPlanningFailure))
+Declaration(Class(:NoFeasiblePlacement))
+Declaration(Class(:NoIK))
+Declaration(Class(:NonrealizedNonpreventedSituation))
+Declaration(Class(:NonrealizedSituation))
+Declaration(Class(:ObjectLost))
+Declaration(Class(:ObjectNotFound))
+Declaration(Class(:ObjectUnavailable))
+Declaration(Class(:OngoingEvent))
+Declaration(Class(:OngoingSituation))
+Declaration(Class(:PhysicalFailure))
+Declaration(Class(:PlacementFailure))
+Declaration(Class(:PlanningPhaseFailure))
+Declaration(Class(:PreventedSituation))
+Declaration(Class(:PursuedGoal))
+Declaration(Class(:ReachabilityFailure))
+Declaration(Class(:RecoveryStrategy))
+Declaration(Class(:ReflexiveFailureHandling))
+Declaration(Class(:RemoveFailureCause))
+Declaration(Class(:RepeatLastAction))
+Declaration(Class(:ReplaceResource))
+Declaration(Class(:ResourceAvailabilityFailure))
+Declaration(Class(:ResourceDepletionFailure))
+Declaration(Class(:ResourceNotAcquired))
+Declaration(Class(:SeekAdvice))
+Declaration(Class(:SeekAssistance))
+Declaration(Class(:SeekPhysicalAssistance))
+Declaration(Class(:SensorFailure))
+Declaration(Class(:State))
+Declaration(Class(:SustainedFailure))
+Declaration(Class(:TaskFailure))
+Declaration(Class(:Timeout))
+Declaration(Class(:TorsoFailure))
+Declaration(Class(:UndoFailureConsequence))
+Declaration(Class(:UnfinishedTimeInterval))
+Declaration(Class(:UnrealizedPrecondition))
+Declaration(ObjectProperty(:describesAsCause))
+Declaration(ObjectProperty(:describesAsTreatment))
+Declaration(ObjectProperty(:during))
+Declaration(ObjectProperty(:hasResource))
+Declaration(ObjectProperty(:hasResult))
+Declaration(ObjectProperty(:impedes))
+Declaration(ObjectProperty(:manifestsIn))
+Declaration(ObjectProperty(:narrativeRole))
+Declaration(ObjectProperty(:narrativeRoleOf))
+Declaration(ObjectProperty(:preventedBy))
+Declaration(ObjectProperty(:preventsSituation))
+Declaration(ObjectProperty(:recoversFrom))
+
+############################
+#   Object Properties
+############################
+
+# Object Property: :describesAsCause (:describesAsCause)
+
+AnnotationAssertion(rdfs:comment :describesAsCause "´caused by´")
+SubObjectPropertyOf(:describesAsCause DUL:describes)
+ObjectPropertyDomain(:describesAsCause DUL:Diagnosis)
+ObjectPropertyRange(:describesAsCause DUL:Entity)
+
+# Object Property: :describesAsTreatment (:describesAsTreatment)
+
+SubObjectPropertyOf(:describesAsTreatment DUL:describes)
+ObjectPropertyDomain(:describesAsTreatment DUL:Diagnosis)
+ObjectPropertyRange(:describesAsTreatment DUL:Entity)
+
+# Object Property: :during (:during)
+
+SubObjectPropertyOf(:during DUL:associatedWith)
+AsymmetricObjectProperty(:during)
+IrreflexiveObjectProperty(:during)
+ObjectPropertyDomain(:during DUL:Event)
+ObjectPropertyRange(:during DUL:Event)
+
+# Object Property: :hasResource (has resource)
+
+AnnotationAssertion(rdfs:label :hasResource "has resource")
+SubObjectPropertyOf(:hasResource DUL:hasPart)
+
+# Object Property: :hasResult (has result)
+
+AnnotationAssertion(rdfs:label :hasResult "has result")
+SubObjectPropertyOf(:hasResult DUL:hasPart)
+
+# Object Property: :impedes (:impedes)
+
+SubObjectPropertyOf(:impedes DUL:associatedWith)
+ObjectPropertyDomain(:impedes DUL:Event)
+ObjectPropertyRange(:impedes DUL:Situation)
+
+# Object Property: :manifestsIn (:manifestsIn)
+
+SubObjectPropertyOf(:manifestsIn DUL:isSettingFor)
+ObjectPropertyDomain(:manifestsIn DUL:Situation)
+ObjectPropertyRange(:manifestsIn DUL:Event)
+
+# Object Property: :narrativeRole (:narrativeRole)
+
+SubObjectPropertyOf(:narrativeRole DUL:usesConcept)
+InverseObjectProperties(:narrativeRole :narrativeRoleOf)
+AsymmetricObjectProperty(:narrativeRole)
+ObjectPropertyDomain(:narrativeRole DUL:Narrative)
+ObjectPropertyRange(:narrativeRole DUL:Concept)
+
+# Object Property: :narrativeRoleOf (:narrativeRoleOf)
+
+SubObjectPropertyOf(:narrativeRoleOf DUL:isConceptUsedIn)
+
+# Object Property: :preventedBy (prevented by)
+
+AnnotationAssertion(rdfs:label :preventedBy "prevented by")
+SubObjectPropertyOf(:preventedBy DUL:hasSetting)
+InverseObjectProperties(:preventedBy :preventsSituation)
+ObjectPropertyDomain(:preventedBy :NonrealizedSituation)
+ObjectPropertyRange(:preventedBy DUL:Situation)
+
+# Object Property: :preventsSituation (prevents situation)
+
+AnnotationAssertion(rdfs:label :preventsSituation "prevents situation")
+SubObjectPropertyOf(:preventsSituation DUL:isSettingFor)
+ObjectPropertyDomain(:preventsSituation DUL:Situation)
+ObjectPropertyRange(:preventsSituation :NonrealizedSituation)
+
+# Object Property: :recoversFrom (:recoversFrom)
+
+SubObjectPropertyOf(:recoversFrom DUL:associatedWith)
+ObjectPropertyDomain(:recoversFrom :RecoveryStrategy)
+ObjectPropertyRange(:recoversFrom DUL:Action)
+
+
+
+############################
+#   Classes
+############################
+
+# Class: :ActuatorFailure (:ActuatorFailure)
+
+AnnotationAssertion(rdfs:comment :ActuatorFailure "A failure occurring in a Physical agent's actuators.
+
+Somewhat loosely speaking, an actuator is a body part the agent uses to influence its environment somehow. In fact, the previous statement is often presented as a definition for an actuator.
+
+However, in actual use, a distinction is made between one electric motor and an entire arm-- although both contribute to enabling the agent to change its environment, the arm is not called an actuator.
+
+The difference is that one actuator, usually, has a space of control signals that has a single degree of freedom. E.g., the control signal for a motor is the current through it, which is one single number at any point in time. In contrast, the control signal space for an arm has at least as many degrees of freedom as the arm has motors.")
+SubClassOf(:ActuatorFailure :BodyPartFailure)
+
+# Class: :AgentiveParticipant (:AgentiveParticipant)
+
+SubClassOf(:AgentiveParticipant DUL:Role)
+SubClassOf(:AgentiveParticipant ObjectAllValuesFrom(DUL:classifies DUL:Agent))
+DisjointClasses(:AgentiveParticipant :EnactedPlan)
+DisjointClasses(:AgentiveParticipant :FailureExplanation)
+DisjointClasses(:AgentiveParticipant :PursuedGoal)
+
+# Class: :ArmFailure (:ArmFailure)
+
+AnnotationAssertion(rdfs:comment :ArmFailure "This is a failure occuring in a Physical agent's \"arms\": body parts the agent uses to position its end effectors.")
+SubClassOf(:ArmFailure :BodyPartFailure)
+
+# Class: :AttemptAlternativeAction (:AttemptAlternativeAction)
+
+AnnotationAssertion(rdfs:comment :AttemptAlternativeAction "A strategy for failure recovery which is pursued when direct correction of a failure's consequences, or removing the causes of a sustained failure, is infeasible.
+
+Examples:
+-- a stove won't operate because the electricity is out; if a portable stove is available together with a gas canister, it might be used instead
+-- a cup was dropped and it shattered; a new cup is picked up and brought to wherever the destination of the first cup was")
+SubClassOf(:AttemptAlternativeAction :RecoveryStrategy)
+DisjointClasses(:AttemptAlternativeAction :RemoveFailureCause)
+DisjointClasses(:AttemptAlternativeAction :UndoFailureConsequence)
+
+# Class: :BatteryFailure (:BatteryFailure)
+
+AnnotationAssertion(rdfs:comment :BatteryFailure "From a \"nature of interactions\" perspective, this is a failure which prevents an Agent to act anymore because of a lack of electrical energy.
+
+From a \"locus of interactions\" perspective, this is a failure of the specific body part charged with storing energy.")
+SubClassOf(:BatteryFailure :BodyPartFailure)
+SubClassOf(:BatteryFailure :ElectricalFailure)
+
+# Class: :BodyFailure (:BodyFailure)
+
+AnnotationAssertion(rdfs:comment :BodyFailure "A failure which occurs because of conditions in the body of the Physical Agent participant of the classified Event.")
+SubClassOf(:BodyFailure :PhysicalFailure)
+SubClassOf(:BodyFailure ObjectAllValuesFrom(DUL:classifies ObjectIntersectionOf(DUL:Event ObjectSomeValuesFrom(DUL:hasParticipant DUL:PhysicalAgent))))
+
+# Class: :BodyPartFailure (:BodyPartFailure)
+
+AnnotationAssertion(rdfs:comment :BodyPartFailure "A failure occurring because of a specific body part of an Agent. What is considered important for this failure is the locus of the physical interactions that caused it, ie. the specific body parts involved.")
+SubClassOf(:BodyPartFailure :BodyFailure)
+
+# Class: :CapabilityAbsenceFailure (:CapabilityAbsenceFailure)
+
+AnnotationAssertion(rdfs:comment :CapabilityAbsenceFailure "Capability absence failures occur when an Agent attempts something which is beyond the capabilities it has right before and at the start of the attempt.
+
+They may happen because the environment the Agent operates in lacks the affordances needed to enable a successful achievement of the Agent's goals, or because the Agent lacks the capability to achieve the goal.")
+SubClassOf(:CapabilityAbsenceFailure :PlanningPhaseFailure)
+
+# Class: :CapabilityDepletionFailure (:CapabilityDepletionFailure)
+
+AnnotationAssertion(rdfs:comment :CapabilityDepletionFailure "Capability depletion failures occur when, during an Agent's execution of a Task, some capability necessary for performance becomes compromised.")
+SubClassOf(:CapabilityDepletionFailure :ExecutionPhaseFailure)
+
+# Class: :CollisionWithFixedObject (:CollisionWithFixedObject)
+
+SubClassOf(:CollisionWithFixedObject :GeometricFailureDiagnosis)
+
+# Class: :CollisionWithMovableObject (:CollisionWithMovableObject)
+
+SubClassOf(:CollisionWithMovableObject :GeometricFailureDiagnosis)
+
+# Class: :CommunicationOrCognitionFailure (:CommunicationOrCognitionFailure)
+
+AnnotationAssertion(rdfs:comment :CommunicationOrCognitionFailure "Classifies an Event that involves some Agents exchanging information.")
+EquivalentClasses(:CommunicationOrCognitionFailure ObjectIntersectionOf(:Failure ObjectAllValuesFrom(DUL:classifies ObjectIntersectionOf(ObjectSomeValuesFrom(DUL:hasParticipant DUL:SocialObject) ObjectAllValuesFrom(DUL:hasParticipant ObjectUnionOf(DUL:Agent DUL:SocialObject))))))
+SubClassOf(:CommunicationOrCognitionFailure :Failure)
+DisjointClasses(:CommunicationOrCognitionFailure :PhysicalFailure)
+
+# Class: :ConfigurationNotReached (:ConfigurationNotReached)
+
+AnnotationAssertion(rdfs:comment :ConfigurationNotReached "An Agent completed a Task that required putting some objects in a particular spatial arrangement (for example, placing one of its end effectors at a particular pose, or positioning some external objects in a certain way relative to each other, or the Agent positioning itself at a particular location in the world).
+
+However, the actual arrangement produced by the Agent is not satisfactory to its Goal.")
+SubClassOf(:ConfigurationNotReached :ExecutionPhaseFailure)
+SubClassOf(:ConfigurationNotReached :PhysicalFailure)
+
+# Class: :ElectricalFailure (:ElectricalFailure)
+
+AnnotationAssertion(rdfs:comment :ElectricalFailure "A failure involving an electrical system in one of the participant Physical objects of the classified Event. What is considered important for this failure is the nature of the physical interactions involved (ie., electrical) rather than their locus at specific body parts.")
+SubClassOf(:ElectricalFailure :BodyFailure)
+
+# Class: :EnactedPlan (:EnactedPlan)
+
+SubClassOf(:EnactedPlan DUL:Role)
+SubClassOf(:EnactedPlan ObjectAllValuesFrom(DUL:classifies DUL:Plan))
+DisjointClasses(:EnactedPlan :FailureExplanation)
+DisjointClasses(:EnactedPlan :PursuedGoal)
+
+# Class: :EndEffectorFailure (:EndEffectorFailure)
+
+AnnotationAssertion(rdfs:comment :EndEffectorFailure "This is a failure located in a Physical agent's \"end effector\" or \"gripper\": a body part the agent uses to physically interact with objects via manipulation actions.")
+SubClassOf(:EndEffectorFailure :BodyPartFailure)
+
+# Class: :ExecutionPhaseFailure (:ExecutionPhaseFailure)
+
+AnnotationAssertion(rdfs:comment :ExecutionPhaseFailure "An execution phase failure occurs when, despite apparently having the necessary preconditions secured, nonetheless the Agent fails in its attempt at the Task.
+
+This covers situations where the agent appears to have completed the task, but investigation of the postconditions reveals they do not match expectations.
+
+It also covers situations where the agent cannot complete the task because some failure signal is raised during execution.")
+EquivalentClasses(:ExecutionPhaseFailure ObjectIntersectionOf(:Failure ObjectAllValuesFrom(DUL:classifies ObjectAllValuesFrom(DUL:isEventIncludedIn :FeasiblePlanExecution))))
+SubClassOf(:ExecutionPhaseFailure :Failure)
+DisjointClasses(:ExecutionPhaseFailure :PlanningPhaseFailure)
+
+# Class: :FailedPlanExecution (Failed plan execution)
+
+AnnotationAssertion(rdfs:comment :FailedPlanExecution "A situation in which a plan, or some plan step, fails to achieve some of its postconditions.")
+AnnotationAssertion(rdfs:label :FailedPlanExecution "Failed plan execution")
+EquivalentClasses(:FailedPlanExecution ObjectIntersectionOf(DUL:PlanExecution ObjectSomeValuesFrom(DUL:hasPostcondition :NonrealizedSituation)))
+SubClassOf(:FailedPlanExecution DUL:PlanExecution)
+
+# Class: :Failure (:Failure)
+
+AnnotationAssertion(rdfs:comment :Failure "A FailureSymptom provides a simple classification label to some Action, and interprets it as a failure of some sort.
+
+A failure is understood as a mismatch between the actual state of the world and the agent after an attempt to execute the action, and the expected state.
+
+In computer systems, a FailureSymptom is associated with error signals.
+
+FailureSymptoms carry very little information about the causal chain that resulted in the error; for a more comprehensive treatment of how an error came about, one would look at a FailureDiagnostic.
+
+So for example, a \"file not found\" signal is a symptom; it purely reports a failure of type ResourceAvailability. Adding information about what file didn't exist would diagnose the problem.")
+AnnotationAssertion(rdfs:comment :Failure "NOTE: unless DisjointWith relations are explicitly indicated, FailureSymptom types can combine.
+
+For example, something like CRAM's torso-goal-unreachable failure would correspond to a (ReachabilityFailure and TorsoFailure), whereas something like CRAM's torso-low-level-failure would correspond to (TorsoFailure and (MechanicalFailure or ElectricalFailure)).")
+EquivalentClasses(Annotation(rdfs:comment "A FailureSymptom is an event type that only classifies Actions. To be classifiable as a failure, the Action must be set in a PlanExecution situation, and this situation has, as a postcondition, a situation which is not a setting for any event. This is to model the mismatch between expected and actual world states, in as much as owl-dl allows.") :Failure ObjectIntersectionOf(DUL:EventType ObjectAllValuesFrom(DUL:classifies ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:isEventIncludedIn :FailedPlanExecution)))))
+SubClassOf(:Failure DUL:EventType)
+DisjointClasses(:Failure DUL:Task)
+
+# Class: :FailureDiagnosis (:FailureDiagnosis)
+
+SubClassOf(:FailureDiagnosis DUL:Diagnosis)
+
+# Class: :FailureExplanation (:FailureExplanation)
+
+SubClassOf(:FailureExplanation :FailureNarrativeRole)
+SubClassOf(:FailureExplanation ObjectAllValuesFrom(DUL:classifies :FailureDiagnosis))
+DisjointClasses(:FailureExplanation :PursuedGoal)
+
+# Class: :FailureNarrative (:FailureNarrative)
+
+AnnotationAssertion(rdfs:comment :FailureNarrative "We use this concept to capture the intuition that a failure of plan P at a time t relatively to agent A is a logical inconsistency between (i) the state of the world at t as known by agent A which is executing P at t, (ii) the state of A at t as known to A, (iii) the expected state of the world at t according to A's ongoing execution of P, and (iv) the capabilities expected by plan P of agent A at t according so as to continue the execution of P.
+
+As such, a FailureNarrative is a Descriptive context in which an Agent, in the pursuit of some Goal, enacts a Plan to execute a Task. However, the outcome of the Agent's actions is not in accordance of the Goal because of a FailureSymptom.
+
+In the above, Agent, Goal, Plan, Task, FailureSymptom are to be understood as roles, rather than individuals of similarly named classes (though in some cases, fillers of these roles are constrained to be individuals of the named classes, for example FailureSymptom).
+
+The FailureNarrative may further include an Explanation of the failure in terms of a FailureDiagnostic.")
+SubClassOf(:FailureNarrative DUL:Narrative)
+SubClassOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole :AgentiveParticipant))
+SubClassOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole :EnactedPlan))
+SubClassOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole :Failure))
+SubClassOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole :FailureExplanation))
+SubClassOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole :PursuedGoal))
+SubClassOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole DUL:Task))
+
+# Class: :FailureNarrativeRole (:FailureNarrativeRole)
+
+SubClassOf(:FailureNarrativeRole DUL:Role)
+
+# Class: :FeasiblePlanExecution (Feasible plan execution)
+
+AnnotationAssertion(rdfs:comment :FeasiblePlanExecution "A situation in which a plan (step) can be performed because all of its preconditions have, at least to the best of an agent's knowledge, materialized before the plan (step) is attempted.")
+AnnotationAssertion(rdfs:label :FeasiblePlanExecution "Feasible plan execution")
+SubClassOf(:FeasiblePlanExecution DUL:PlanExecution)
+
+# Class: :FinishedFailure (:FinishedFailure)
+
+AnnotationAssertion(rdfs:comment :FinishedFailure "Classifies an Event whose outcome was deemed a failure. Crucially, and this is what differentiates this from SustainedFailures, the causal chain that lead to this Event is not, prima facie, important. Because of that, simply removing or undoing the consequences of the failure will undo the failure.
+
+In some sense of course, the causal chain that lead to a failure is always important to some degree. However, if one drops a cup, it is reasonable to just pick it up again without worrying too much why it slipped-- undoing the failure consequence is enough.
+
+In contrast, trying to repeatedly switch on a stove that isn't plugged in will go nowhere-- until the stove is plugged in, it cannot work.")
+EquivalentClasses(:FinishedFailure ObjectIntersectionOf(:Failure ObjectAllValuesFrom(DUL:classifies ObjectAllValuesFrom(DUL:isEventIncludedIn ObjectIntersectionOf(ObjectAllValuesFrom(DUL:hasPostcondition :NonrealizedNonpreventedSituation) ObjectAllValuesFrom(DUL:hasPrecondition :NonrealizedNonpreventedSituation))))))
+SubClassOf(:FinishedFailure :Failure)
+DisjointClasses(:FinishedFailure :SustainedFailure)
+
+# Class: :GeometricFailureDiagnosis (Geometric failure diagnosis)
+
+AnnotationAssertion(rdfs:label :GeometricFailureDiagnosis "Geometric failure diagnosis")
+SubClassOf(:GeometricFailureDiagnosis :FailureDiagnosis)
+
+# Class: :HardPlanningProblem (:HardPlanningProblem)
+
+AnnotationAssertion(rdfs:comment :HardPlanningProblem "This Diagnosis explains a Timeout error produced by a planner by indicating that the planner could not find a solution within the allocated time.")
+SubClassOf(:HardPlanningProblem :GeometricFailureDiagnosis)
+
+# Class: :HeadFailure (:HeadFailure)
+
+AnnotationAssertion(rdfs:comment :HeadFailure "A failure occurring in a Physical agent's \"head\". Specifically, the actuators and systems an agent uses to reposition some body part carrying high-bandwidth sensors such as cameras.")
+SubClassOf(:HeadFailure :BodyPartFailure)
+
+# Class: :IgnoreFailure (:IgnoreFailure)
+
+SubClassOf(:IgnoreFailure :RecoveryStrategy)
+
+# Class: :IllPosedGoalFailure (:IllPosedGoalFailure)
+
+AnnotationAssertion(rdfs:comment :IllPosedGoalFailure "The Goal the Agent pursues turns out to be impossible because it is self-contradictory, or forbidden by physical laws and interactions.
+
+A distinction should be made between goals that are impossible for a particular Agent because it lacks the relevant capabilities (which is covered by CapabilityFailure) and goals that are impossible for any, or at least for a wide class of Agents, which is covered by this class.
+
+As an example, an Agent with a non-functioning mobile base cannot navigate to some goal location because it temporarily lacks the capability of locomotion. This would be a CapabilityFailure.
+
+Suppose instead that an Agent is given as a goal to navigate to a location already occupied by some other physical object. Unless the Agent is a ghost, it cannot get there. This would be an IllPosedGoalFailure.")
+SubClassOf(:IllPosedGoalFailure :PlanningPhaseFailure)
+
+# Class: :LocomotorFailure (:LocomotorFailure)
+
+AnnotationAssertion(rdfs:comment :LocomotorFailure "A failure occurring in a Physical agent's \"legs\" or \"(mobile) base\".
+
+Legs, mobile bases, and similar body parts are those that allow an agent to move its entire body through the environment")
+SubClassOf(:LocomotorFailure :BodyPartFailure)
+
+# Class: :MechanicalFailure (:MechanicalFailure)
+
+AnnotationAssertion(rdfs:comment :MechanicalFailure "A failure involving a mechanical system that is part of one Physical object participant to the classified Event. What is considered important for this failure is the nature of the physical interactions (ie., mechanical) rather than their locus at particular body parts.")
+SubClassOf(:MechanicalFailure :BodyFailure)
+
+# Class: :MotionPlanningFailure (:MotionPlanningFailure)
+
+SubClassOf(:MotionPlanningFailure :IllPosedGoalFailure)
+SubClassOf(:MotionPlanningFailure ObjectSomeValuesFrom(ObjectInverseOf(:narrativeRole) ObjectIntersectionOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole ObjectIntersectionOf(:FailureExplanation ObjectSomeValuesFrom(DUL:classifies ObjectUnionOf(:CollisionWithMovableObject :HardPlanningProblem)))))))
+
+# Class: :NoFeasiblePlacement (:NoFeasiblePlacement)
+
+AnnotationAssertion(rdfs:comment :NoFeasiblePlacement "it means that no enough rooms to place the objects or the placement room is too small")
+SubClassOf(:NoFeasiblePlacement :GeometricFailureDiagnosis)
+
+# Class: :NoIK (:NoIK)
+
+SubClassOf(:NoIK :GeometricFailureDiagnosis)
+
+# Class: :NonrealizedNonpreventedSituation (Nonrealized nonactively prevented situation)
+
+AnnotationAssertion(rdfs:label :NonrealizedNonpreventedSituation "Nonrealized nonactively prevented situation")
+SubClassOf(:NonrealizedNonpreventedSituation :NonrealizedSituation)
+DisjointClasses(:NonrealizedNonpreventedSituation :PreventedSituation)
+
+# Class: :NonrealizedSituation (Nonrealized situation)
+
+AnnotationAssertion(rdfs:comment :NonrealizedSituation "Auxiliary concept to make axioms more compact.
+
+This is a situation that so far never materialized in an event.")
+AnnotationAssertion(rdfs:label :NonrealizedSituation "Nonrealized situation")
+SubClassOf(:NonrealizedSituation DUL:Situation)
+
+# Class: :ObjectLost (:ObjectLost)
+
+AnnotationAssertion(rdfs:comment :ObjectLost "An Agent loses or damages beyond usefulness a necessary object for the continuation of an Action.")
+SubClassOf(:ObjectLost :PhysicalFailure)
+SubClassOf(:ObjectLost :ResourceDepletionFailure)
+
+# Class: :ObjectNotFound (:ObjectNotFound)
+
+AnnotationAssertion(rdfs:comment :ObjectNotFound "An Agent performs an action, or series of actions, meant to locate some object of interest. Upon completion of these actions, the object of interest has not been found.")
+SubClassOf(:ObjectNotFound :PhysicalFailure)
+SubClassOf(:ObjectNotFound :ResourceNotAcquired)
+
+# Class: :ObjectUnavailable (:ObjectUnavailable)
+
+AnnotationAssertion(rdfs:comment :ObjectUnavailable "An Agent cannot begin an action because some necessary object is not present.")
+SubClassOf(:ObjectUnavailable :PhysicalFailure)
+SubClassOf(:ObjectUnavailable :ResourceAvailabilityFailure)
+
+# Class: :OngoingEvent (Ongoing event)
+
+AnnotationAssertion(rdfs:comment :OngoingEvent "An auxiliary concept to make concept definition axioms more compact.")
+AnnotationAssertion(rdfs:label :OngoingEvent "Ongoing event")
+EquivalentClasses(:OngoingEvent ObjectIntersectionOf(DUL:Event ObjectSomeValuesFrom(DUL:hasTimeInterval :UnfinishedTimeInterval) ObjectAllValuesFrom(DUL:hasTimeInterval :UnfinishedTimeInterval)))
+SubClassOf(:OngoingEvent DUL:Event)
+
+# Class: :OngoingSituation (Ongoing situation)
+
+AnnotationAssertion(rdfs:label :OngoingSituation "Ongoing situation")
+EquivalentClasses(:OngoingSituation ObjectIntersectionOf(DUL:Situation ObjectSomeValuesFrom(:manifestsIn :OngoingEvent) ObjectAllValuesFrom(:manifestsIn :OngoingEvent)))
+SubClassOf(:OngoingSituation DUL:Situation)
+
+# Class: :PhysicalFailure (:PhysicalFailure)
+
+AnnotationAssertion(rdfs:comment :PhysicalFailure "PhysicalFailures involve physical objects that either make up the Agent, or that the Agent acts on or with.")
+EquivalentClasses(:PhysicalFailure ObjectIntersectionOf(:Failure ObjectAllValuesFrom(DUL:classifies ObjectSomeValuesFrom(DUL:hasParticipant DUL:PhysicalObject))))
+SubClassOf(:PhysicalFailure :Failure)
+
+# Class: :PlacementFailure (:PlacementFailure)
+
+SubClassOf(:PlacementFailure :ExecutionPhaseFailure)
+SubClassOf(:PlacementFailure ObjectSomeValuesFrom(ObjectInverseOf(:narrativeRole) ObjectIntersectionOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole ObjectIntersectionOf(:FailureExplanation ObjectSomeValuesFrom(DUL:classifies ObjectUnionOf(:CollisionWithFixedObject :CollisionWithMovableObject :NoFeasiblePlacement)))))))
+
+# Class: :PlanningPhaseFailure (:PlanningPhaseFailure)
+
+AnnotationAssertion(rdfs:comment :PlanningPhaseFailure "A planning phase failure indicates that preconditions for a successful execution of a task are missing.
+
+Note, it is often the case that computer systems report PlanningPhaseFailures during the execution of a Task, rather than reporting them only at the beginning. 
+
+This happens for example when a top-level task fails because one of its subtasks cannot begin.
+
+So a PlanningPhaseFailure signals that there exists a subtask of the failed task such that the action that would have executed the subtask could not begin.")
+EquivalentClasses(:PlanningPhaseFailure ObjectIntersectionOf(:SustainedFailure ObjectAllValuesFrom(DUL:classifies ObjectSomeValuesFrom(DUL:isEventIncludedIn ObjectIntersectionOf(DUL:PlanExecution ObjectSomeValuesFrom(DUL:hasPrecondition :NonrealizedSituation))))))
+SubClassOf(:PlanningPhaseFailure :SustainedFailure)
+
+# Class: :PreventedSituation (Prevented situation)
+
+AnnotationAssertion(rdfs:comment :PreventedSituation "Auxiliary concept to make axioms more compact.
+
+This is a situation that is actively being prevented from materializing in an event because of some other ongoing situation.")
+AnnotationAssertion(rdfs:label :PreventedSituation "Prevented situation")
+EquivalentClasses(:PreventedSituation ObjectIntersectionOf(:NonrealizedSituation ObjectSomeValuesFrom(:preventedBy :OngoingSituation)))
+SubClassOf(:PreventedSituation :NonrealizedSituation)
+
+# Class: :PursuedGoal (:PursuedGoal)
+
+SubClassOf(:PursuedGoal DUL:Role)
+SubClassOf(:PursuedGoal ObjectAllValuesFrom(DUL:classifies DUL:Goal))
+
+# Class: :ReachabilityFailure (:ReachabilityFailure)
+
+AnnotationAssertion(rdfs:comment :ReachabilityFailure "A physical Agent cannot reach a physical object.")
+SubClassOf(:ReachabilityFailure :CapabilityAbsenceFailure)
+SubClassOf(:ReachabilityFailure :PhysicalFailure)
+SubClassOf(:ReachabilityFailure ObjectSomeValuesFrom(ObjectInverseOf(:narrativeRole) ObjectIntersectionOf(:FailureNarrative ObjectSomeValuesFrom(:narrativeRole ObjectIntersectionOf(:FailureExplanation ObjectSomeValuesFrom(DUL:classifies ObjectUnionOf(:CollisionWithFixedObject :CollisionWithMovableObject :NoIK)))))))
+
+# Class: :RecoveryStrategy (:RecoveryStrategy)
+
+AnnotationAssertion(rdfs:comment :RecoveryStrategy "A FailureRecovery classifies an event in which an Agent attempts to do one of several things:
+
+-- undo the consequences of a previous failure
+-- remove circumstances that caused a previous failure
+
+Unless classes are explicitly marked disjoint, they can mix.")
+SubClassOf(:RecoveryStrategy DUL:Task)
+SubClassOf(:RecoveryStrategy ObjectSomeValuesFrom(:recoversFrom ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:isClassifiedBy :Failure))))
+SubClassOf(:RecoveryStrategy ObjectAllValuesFrom(DUL:classifies ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:follows ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:isClassifiedBy :Failure))))))
+
+# Class: :ReflexiveFailureHandling (:ReflexiveFailureHandling)
+
+AnnotationAssertion(rdfs:comment :ReflexiveFailureHandling "A strategy pursued when the world after a failed action is, at some level of description, in one of a few known possible states, where for each such possible states a response is defined.
+
+The simplest case is when the world state is the same as before the action; a plausible response in this situation is to try the action again, assuming that the failure is not a sustained one.
+
+Another situation is when a plan defines an expected outcome of a successful action, plus several responses to other potential outcomes. For example, a robot might try to grab an object, and upon receiving an IK failure, try to move the base closer to the target object.")
+SubClassOf(:ReflexiveFailureHandling :RecoveryStrategy)
+
+# Class: :RemoveFailureCause (:RemoveFailureCause)
+
+AnnotationAssertion(rdfs:comment :RemoveFailureCause "Correcting a failure by removing its cause.
+
+This is appropriate for failures that are not the result of an Agent's action in the world, but rather because the world is not set up to support the Agent's goals.
+
+Examples of such failures, causes, and their responses:
+-- a stove doesn't start-- because it is not plugged in-- plug the stove in
+-- a drilling machine stops prematurely-- because it ran out of battery-- recharge or replace the battery
+
+Capability failures are included here: that is, situations where the Agent couldn't act as intended. Examples:
+-- an object is not reachable-- because it is too far-- have the Agent move closer
+-- a position cannot be navigated to-- there is a closed door on the way-- open the door")
+SubClassOf(:RemoveFailureCause :RecoveryStrategy)
+SubClassOf(:RemoveFailureCause ObjectAllValuesFrom(DUL:classifies ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:follows ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:isClassifiedBy :SustainedFailure))))))
+DisjointClasses(:RemoveFailureCause :UndoFailureConsequence)
+
+# Class: :RepeatLastAction (:RepeatLastAction)
+
+AnnotationAssertion(rdfs:comment :RepeatLastAction "A basic failure handling strategy: if at first you don't succeed, try again.
+
+This only makes sense if the world state after the failed action is, at some relevant level of abstraction, identical to the state before the action was attempted.")
+SubClassOf(:RepeatLastAction :ReflexiveFailureHandling)
+SubClassOf(:RepeatLastAction :UndoFailureConsequence)
+
+# Class: :ReplaceResource (:ReplaceResource)
+
+SubClassOf(:ReplaceResource :AttemptAlternativeAction)
+
+# Class: :ResourceAvailabilityFailure (:ResourceAvailabilityFailure)
+
+AnnotationAssertion(rdfs:comment :ResourceAvailabilityFailure "A failure preventing an Agent from undertaking an Action because the prerequisite resources are not available.")
+SubClassOf(:ResourceAvailabilityFailure :PlanningPhaseFailure)
+
+# Class: :ResourceDepletionFailure (:ResourceDepletionFailure)
+
+AnnotationAssertion(rdfs:comment :ResourceDepletionFailure "A failure preventing an Agent from completing an Action because necessary resources have run out while the Action was being performed.")
+SubClassOf(:ResourceDepletionFailure :ExecutionPhaseFailure)
+
+# Class: :ResourceNotAcquired (:ResourceNotAcquired)
+
+SubClassOf(:ResourceNotAcquired :ExecutionPhaseFailure)
+
+# Class: :SeekAdvice (:SeekAdvice)
+
+SubClassOf(:SeekAdvice :SeekAssistance)
+
+# Class: :SeekAssistance (:SeekAssistance)
+
+SubClassOf(:SeekAssistance :AttemptAlternativeAction)
+
+# Class: :SeekPhysicalAssistance (:SeekPhysicalAssistance)
+
+SubClassOf(:SeekPhysicalAssistance :SeekAssistance)
+
+# Class: :SensorFailure (:SensorFailure)
+
+AnnotationAssertion(rdfs:comment :SensorFailure "A failure occurring in a Physical agent's sensor or transducer. This is a body part the agent uses to convert some signal from its environment into data it can access.")
+SubClassOf(:SensorFailure :BodyPartFailure)
+
+# Class: :State (:State)
+
+AnnotationAssertion(rdfs:comment :State "A stative homeomeric Event")
+SubClassOf(:State DUL:Event)
+
+# Class: :SustainedFailure (:SustainedFailure)
+
+AnnotationAssertion(rdfs:comment :SustainedFailure "This occurs when the causes of the Event classified as failure are themselves ongoing events, and if left unaddressed these causes will maintain the failure condition potentially indefinitely.
+
+Examples:
+-- a stove is not running because it is not plugged in. As long as it's not plugged in, it won't be operational
+-- a room is inaccessible because the door to it is locked
+
+Also, InceptionFailures are considered Sustained. This is because an InceptionFailure happens when the agent discovers it is unable to perform an Action at all, which is because of some pre-existing arrangement of entities in the world. As long as that arrangement is not addressed, a repeated attempt of the Action will fail similarly.")
+EquivalentClasses(:SustainedFailure ObjectIntersectionOf(:Failure ObjectAllValuesFrom(DUL:classifies ObjectSomeValuesFrom(DUL:isEventIncludedIn ObjectUnionOf(ObjectSomeValuesFrom(DUL:hasPostcondition :PreventedSituation) ObjectSomeValuesFrom(DUL:hasPrecondition :PreventedSituation))))))
+SubClassOf(:SustainedFailure :Failure)
+
+# Class: :TaskFailure (:TaskFailure)
+
+AnnotationAssertion(rdfs:comment :TaskFailure "A Situation which interprets a series of Events as the failed execution of some task(s).
+
+In other words, there needs to be an Event, with an Agent as an effective cause; further, the Agent should be pursuing some Goal, which it does by following a Plan to complete a Task.
+
+What differentiates this from a usual PlanExecution is that, further, the outcome of the Agent's actions are in some way not conformant to what the Agent intended, or is believed to have intended.
+
+Examples: 
+
+a) a robot has the task to transport a cup from a sink to a table. While in transit, the robot drops the cup and it shatters. This collection of events, together with the knowledge of the robot task and goal, constitutes a failure situation.
+
+b) we watch Alice pick up a cup from a sink and move towards the table; we assume she intends to bring the cup to the table. While transporting the cup, Alice drops it and the cup shatters. Given our assumption about Alice's motives and our observation of what happened, we conceptualize this situation as a TaskFailure. Note however that if we come to believe Alice actually intended to drop the cup, the TaskFailure situation no longer is a valid interpretation of the observed events.")
+SubClassOf(:TaskFailure DUL:Situation)
+SubClassOf(:TaskFailure ObjectSomeValuesFrom(DUL:satisfies :FailureNarrative))
+
+# Class: :Timeout (:Timeout)
+
+AnnotationAssertion(rdfs:comment :Timeout "Communication failed because a waiting period expired.")
+SubClassOf(:Timeout :ResourceDepletionFailure)
+
+# Class: :TorsoFailure (:TorsoFailure)
+
+AnnotationAssertion(rdfs:comment :TorsoFailure "This is a failure located in a  Physical Agent's \"torso\": a body part that serves as a base for the agent's arms.")
+SubClassOf(:TorsoFailure :BodyPartFailure)
+
+# Class: :UndoFailureConsequence (:UndoFailureConsequence)
+
+AnnotationAssertion(rdfs:comment :UndoFailureConsequence "Correcting a failure by removing its consequence.
+
+This is appropriate for failures that are the result of an Agent's action, and therefore the Agent needs to correct its mistake.
+
+Examples of such failures, consequences, and their responses:
+-- a cup is dropped during transport-- it is no longer transported by the robot-- pick the cup back up")
+SubClassOf(:UndoFailureConsequence :RecoveryStrategy)
+SubClassOf(:UndoFailureConsequence ObjectAllValuesFrom(DUL:classifies ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:follows ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:isClassifiedBy :FinishedFailure))))))
+
+# Class: :UnfinishedTimeInterval (Unfinished time interval)
+
+AnnotationAssertion(rdfs:comment :UnfinishedTimeInterval "An interval that extends to the present time and may continue to some unknown end point in the future.")
+AnnotationAssertion(rdfs:label :UnfinishedTimeInterval "Unfinished time interval")
+SubClassOf(:UnfinishedTimeInterval DUL:TimeInterval)
+
+# Class: :UnrealizedPrecondition (:UnrealizedPrecondition)
+
+EquivalentClasses(:UnrealizedPrecondition ObjectIntersectionOf(:NonrealizedSituation ObjectSomeValuesFrom(DUL:isPreconditionOf ObjectSomeValuesFrom(DUL:isSettingFor ObjectSomeValuesFrom(DUL:isClassifiedBy :SustainedFailure)))))
+SubClassOf(:UnrealizedPrecondition :NonrealizedSituation)
+
+
+SubClassOf(ObjectIntersectionOf(:FeasiblePlanExecution ObjectSomeValuesFrom(DUL:hasPrecondition :NonrealizedSituation)) owl:Nothing)
+SubClassOf(ObjectIntersectionOf(:IgnoreFailure ObjectSomeValuesFrom(:recoversFrom ObjectSomeValuesFrom(:impedes ObjectSomeValuesFrom(DUL:satisfies DUL:Goal)))) owl:Nothing)
+SubClassOf(ObjectIntersectionOf(:NonrealizedNonpreventedSituation ObjectSomeValuesFrom(:preventedBy :OngoingSituation)) owl:Nothing)
+SubClassOf(ObjectIntersectionOf(:NonrealizedSituation ObjectSomeValuesFrom(:manifestsIn DUL:Event)) owl:Nothing)
+SubClassOf(ObjectIntersectionOf(:RepeatLastAction ObjectSomeValuesFrom(:recoversFrom ObjectIntersectionOf(DUL:Action ObjectSomeValuesFrom(DUL:isClassifiedBy :SustainedFailure)))) owl:Nothing)
+SubClassOf(ObjectSomeValuesFrom(:describesAsCause owl:Thing) DUL:Diagnosis)
+SubClassOf(ObjectSomeValuesFrom(:describesAsTreatment owl:Thing) DUL:Diagnosis)
+SubClassOf(ObjectSomeValuesFrom(:narrativeRole owl:Thing) DUL:Narrative)
+SubClassOf(ObjectSomeValuesFrom(:narrativeRoleOf owl:Thing) DUL:Concept)
+SubObjectPropertyOf(ObjectPropertyChain(DUL:isEventIncludedIn DUL:hasPostcondition :preventsSituation) :impedes)
+)

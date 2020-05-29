@@ -1,0 +1,14 @@
+<package>
+  <name>failrecont</name>
+  <version>1.0.0</version>
+  <description>An ontology of failure types and recovery strategies</description>
+  <maintainer email="pomarlan@uni-bremen.de">Mihai Pomarlan</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ease-crc.org</url>
+
+  <author>Mihai Pomarlan</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

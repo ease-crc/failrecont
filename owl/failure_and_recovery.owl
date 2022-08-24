@@ -322,6 +322,9 @@ DisjointClasses(:Failure DUL:Task)
 
 # Class: :FailureDiagnosis (:FailureDiagnosis)
 
+AnnotationAssertion(rdfs:comment :FailureDiagnosis "A description of the reasons for a failure.
+
+Error messages produced by software will typically contain, at least in part, the information necessary to recover a failure diagnosis.")
 SubClassOf(:FailureDiagnosis DUL:Diagnosis)
 
 # Class: :FailureExplanation (:FailureExplanation)

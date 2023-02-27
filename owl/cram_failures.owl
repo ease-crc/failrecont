@@ -4,7 +4,8 @@ Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
 Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
 Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
 Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
-Prefix(EASE:=<http://www.ease-crc.org/ont/EASE.owl#>)
+Prefix(FAIL:=<http://www.ease-crc.org/ont/failure_and_recovery.owl#>)
+Prefix(SOMA:=<http://www.ease-crc.org/ont/SOMA.owl#>)
 Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 
 
@@ -44,6 +45,16 @@ Declaration(Class(:CRAMSearchingFailed))
 Declaration(Class(:CRAMTorsoGoalNotReached))
 Declaration(Class(:CRAMTorsoGoalUnreachable))
 Declaration(Class(:CRAMTorsoLowLevelFailure))
+Declaration(Class(:Grasping))
+Declaration(Class(:Looking))
+Declaration(Class(FAIL:ObjectPoseMisestimation))
+Declaration(Class(FAIL:SuccessfulCompletion))
+Declaration(Class(DUL:Task))
+Declaration(ObjectProperty(DUL:describes))
+Declaration(ObjectProperty(DUL:directlyFollows))
+Declaration(ObjectProperty(DUL:includesEvent))
+Declaration(ObjectProperty(DUL:isClassifiedBy))
+Declaration(ObjectProperty(DUL:isDescribedBy))
 
 
 
@@ -54,60 +65,60 @@ Declaration(Class(:CRAMTorsoLowLevelFailure))
 # Class: :CRAMActionlibActionTimeout (:CRAMActionlibActionTimeout)
 
 SubClassOf(:CRAMActionlibActionTimeout :CRAMLowLevelFailure)
-SubClassOf(:CRAMActionlibActionTimeout ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#Timeout>)))
+SubClassOf(:CRAMActionlibActionTimeout ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:Timeout)))
 
 # Class: :CRAMDeliveringFailed (:CRAMDeliveringFailed)
 
 AnnotationAssertion(rdfs:comment :CRAMDeliveringFailed "Thrown when delivering plan completely gives up.")
 SubClassOf(:CRAMDeliveringFailed :CRAMHighLevelFailure)
-SubClassOf(Annotation(rdfs:comment "The main message of this error signal is that a particular CRAM plan (delivery) has exhausted its \"retry\" failure handling procedures and therefore one can conclude the error is of a sustained nature.") :CRAMDeliveringFailed ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#SustainedFailure>)))
+SubClassOf(Annotation(rdfs:comment "The main message of this error signal is that a particular CRAM plan (delivery) has exhausted its \"retry\" failure handling procedures and therefore one can conclude the error is of a sustained nature.") :CRAMDeliveringFailed ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:SustainedFailure)))
 
 # Class: :CRAMEnvironmentManipulationGoalNotReached (:CRAMEnvironmentManipulationGoalNotReached)
 
 AnnotationAssertion(rdfs:comment :CRAMEnvironmentManipulationGoalNotReached "Thrown when door / drawer opening / closing goal is still not reached.")
 SubClassOf(:CRAMEnvironmentManipulationGoalNotReached :CRAMManipulationLowLevelFailure)
-SubClassOf(:CRAMEnvironmentManipulationGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>)))
+SubClassOf(:CRAMEnvironmentManipulationGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ConfigurationNotReached)))
 
 # Class: :CRAMEnvironmentManipulationImpossible (:CRAMEnvironmentManipulationImpossible)
 
 AnnotationAssertion(rdfs:comment :CRAMEnvironmentManipulationImpossible "Thrown when environment manipulation cannot be achieved.")
 SubClassOf(:CRAMEnvironmentManipulationImpossible :CRAMHighLevelFailure)
-SubClassOf(:CRAMEnvironmentManipulationImpossible ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy ObjectUnionOf(<http://www.ease-crc.org/ont/failure_and_recovery.owl#CapabilityAbsenceFailure> <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>))))
+SubClassOf(:CRAMEnvironmentManipulationImpossible ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy ObjectUnionOf(FAIL:CapabilityAbsenceFailure FAIL:ConfigurationNotReached))))
 
 # Class: :CRAMEnvironmentUnreachable (:CRAMEnvironmentUnreachable)
 
 AnnotationAssertion(rdfs:comment :CRAMEnvironmentUnreachable "Thrown when environment manipulation in collision or unreachable.")
 SubClassOf(:CRAMEnvironmentUnreachable :CRAMHighLevelFailure)
-SubClassOf(:CRAMEnvironmentUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMEnvironmentUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure)))
 
 # Class: :CRAMFailureDiagnosis (:CRAMFailureDiagnosis)
 
 AnnotationAssertion(rdfs:comment :CRAMFailureDiagnosis "A failure diagnosis evoked by one of the error conditions of the Cognitive Robot Abstract Machine (CRAM).")
-SubClassOf(:CRAMFailureDiagnosis <http://www.ease-crc.org/ont/failure_and_recovery.owl#FailureDiagnosis>)
+SubClassOf(:CRAMFailureDiagnosis FAIL:FailureDiagnosis)
 
 # Class: :CRAMFetchingFailed (:CRAMFetchingFailed)
 
 AnnotationAssertion(rdfs:comment :CRAMFetchingFailed "Thrown when fetching plan completely gives up.")
 SubClassOf(:CRAMFetchingFailed :CRAMHighLevelFailure)
-SubClassOf(Annotation(rdfs:comment "The main message of this error signal is that a particular CRAM plan (fetch) has exhausted its \"retry\" failure handling procedures and therefore one can conclude the error is of a sustained nature.") :CRAMFetchingFailed ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#SustainedFailure>)))
+SubClassOf(Annotation(rdfs:comment "The main message of this error signal is that a particular CRAM plan (fetch) has exhausted its \"retry\" failure handling procedures and therefore one can conclude the error is of a sustained nature.") :CRAMFetchingFailed ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:SustainedFailure)))
 
 # Class: :CRAMGripperClosedCompletely (:CRAMGripperClosedCompletely)
 
 AnnotationAssertion(rdfs:comment :CRAMGripperClosedCompletely "Thrown when the gripper closed completely, despite not being expected to do so (e.g. because it should have grasped something).")
 SubClassOf(:CRAMGripperClosedCompletely :CRAMGripperLowLevelFailure)
-SubClassOf(:CRAMGripperClosedCompletely ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>)))
+SubClassOf(:CRAMGripperClosedCompletely ObjectAllValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ConfigurationNotReached)))
 
 # Class: :CRAMGripperGoalNotReached (:CRAMGripperGoalNotReached)
 
 AnnotationAssertion(rdfs:comment :CRAMGripperGoalNotReached "Thrown when the gripper does not reach its goal.")
 SubClassOf(:CRAMGripperGoalNotReached :CRAMGripperLowLevelFailure)
-SubClassOf(:CRAMGripperGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>)))
+SubClassOf(:CRAMGripperGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ConfigurationNotReached)))
 
 # Class: :CRAMGripperLowLevelFailure (:CRAMGripperLowLevelFailure)
 
 AnnotationAssertion(rdfs:comment :CRAMGripperLowLevelFailure "Thrown when a failure involving the gripper hardware occurs.")
 SubClassOf(:CRAMGripperLowLevelFailure :CRAMLowLevelFailure)
-SubClassOf(:CRAMGripperLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#EndEffectorFailure>)))
+SubClassOf(:CRAMGripperLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:EndEffectorFailure)))
 
 # Class: :CRAMHighLevelFailure (:CRAMHighLevelFailure)
 
@@ -118,7 +129,7 @@ SubClassOf(:CRAMHighLevelFailure :CRAMFailureDiagnosis)
 
 AnnotationAssertion(rdfs:comment :CRAMLookingHighLevelFailure "High-level failure produced when looking for an object, i.e. it is not a hardware issue but one relating to the looking task, its parameters, and how they relate to the environment.")
 SubClassOf(:CRAMLookingHighLevelFailure :CRAMHighLevelFailure)
-SubClassOf(:CRAMLookingHighLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ObjectNotFound>)))
+SubClassOf(:CRAMLookingHighLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ObjectNotFound)))
 
 # Class: :CRAMLowLevelFailure (:CRAMLowLevelFailure)
 
@@ -129,37 +140,37 @@ SubClassOf(:CRAMLowLevelFailure :CRAMFailureDiagnosis)
 
 AnnotationAssertion(rdfs:comment :CRAMManipulationGoalInCollision "Thrown when executing a manipulation action results in a collision.")
 SubClassOf(:CRAMManipulationGoalInCollision :CRAMHighLevelFailure)
-SubClassOf(:CRAMManipulationGoalInCollision ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#IllPosedGoalFailure>)))
+SubClassOf(:CRAMManipulationGoalInCollision ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:IllPosedGoalFailure)))
 
 # Class: :CRAMManipulationGoalNotReached (:CRAMManipulationGoalNotReached)
 
 AnnotationAssertion(rdfs:comment :CRAMManipulationGoalNotReached "Thrown when after executing the action, goal is still not reached.")
 SubClassOf(:CRAMManipulationGoalNotReached :CRAMManipulationLowLevelFailure)
-SubClassOf(:CRAMManipulationGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>)))
+SubClassOf(:CRAMManipulationGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ConfigurationNotReached)))
 
 # Class: :CRAMManipulationLowLevelFailure (:CRAMManipulationLowLevelFailure)
 
 AnnotationAssertion(rdfs:comment :CRAMManipulationLowLevelFailure "Thrown when a low-level, i.e. hardware related, failure is detected in a manipulation action.")
 SubClassOf(:CRAMManipulationLowLevelFailure :CRAMLowLevelFailure)
-SubClassOf(:CRAMManipulationLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ArmFailure>)))
+SubClassOf(:CRAMManipulationLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ArmFailure)))
 
 # Class: :CRAMManipulationPoseUnreachable (:CRAMManipulationPoseUnreachable)
 
 AnnotationAssertion(rdfs:comment :CRAMManipulationPoseUnreachable "Thrown when no IK solution can be found.")
 SubClassOf(:CRAMManipulationPoseUnreachable :CRAMManipulationLowLevelFailure)
-SubClassOf(:CRAMManipulationPoseUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMManipulationPoseUnreachable ObjectAllValuesFrom(DUL:describes ObjectAllValuesFrom(DUL:includesEvent ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure))))
 
 # Class: :CRAMNavigationGoalInCollision (:CRAMNavigationGoalInCollision)
 
 AnnotationAssertion(rdfs:comment :CRAMNavigationGoalInCollision "Navigation goal cannot be reached because the goal itself is already occupied by some other object.")
 SubClassOf(:CRAMNavigationGoalInCollision :CRAMNavigationHighLevelFailure)
-SubClassOf(:CRAMNavigationGoalInCollision ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#IllPosedGoalFailure>)))
+SubClassOf(:CRAMNavigationGoalInCollision ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:IllPosedGoalFailure)))
 
 # Class: :CRAMNavigationGoalNotReached (:CRAMNavigationGoalNotReached)
 
 AnnotationAssertion(rdfs:comment :CRAMNavigationGoalNotReached "Thrown when the base moved as a result of the navigation action but the goal was not reached.")
 SubClassOf(:CRAMNavigationGoalNotReached :CRAMNavigationLowLevelFailure)
-SubClassOf(:CRAMNavigationGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>)))
+SubClassOf(:CRAMNavigationGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ConfigurationNotReached)))
 
 # Class: :CRAMNavigationHighLevelFailure (:CRAMNavigationHighLevelFailure)
 
@@ -170,80 +181,90 @@ SubClassOf(:CRAMNavigationHighLevelFailure :CRAMHighLevelFailure)
 
 AnnotationAssertion(rdfs:comment :CRAMNavigationLowLevelFailure "Low-level failure produced while navigating the robot, i.e. some kind of hardware issue.")
 SubClassOf(:CRAMNavigationLowLevelFailure :CRAMLowLevelFailure)
-SubClassOf(:CRAMNavigationLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#LocomotorFailure>)))
+SubClassOf(:CRAMNavigationLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:LocomotorFailure)))
 
 # Class: :CRAMNavigationPoseUnreachable (:CRAMNavigationPoseUnreachable)
 
 AnnotationAssertion(rdfs:comment :CRAMNavigationPoseUnreachable "Thrown when the goal pose for navigation is computed to be unreachable.")
 SubClassOf(:CRAMNavigationPoseUnreachable :CRAMNavigationLowLevelFailure)
-SubClassOf(:CRAMNavigationPoseUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMNavigationPoseUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure)))
 
 # Class: :CRAMObjectNowhereToBeFound (:CRAMObjectNowhereToBeFound)
 
 AnnotationAssertion(rdfs:comment :CRAMObjectNowhereToBeFound "Thrown when the robot cannot find an object of a given description in its surroundings.")
 SubClassOf(:CRAMObjectNowhereToBeFound :CRAMHighLevelFailure)
-SubClassOf(:CRAMObjectNowhereToBeFound ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ObjectUnavailable>)))
+SubClassOf(:CRAMObjectNowhereToBeFound ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ObjectUnavailable)))
 
 # Class: :CRAMObjectUndeliverable (:CRAMObjectUndeliverable)
 
 AnnotationAssertion(rdfs:comment :CRAMObjectUndeliverable "Thrown when no base positioning can assure a reachable pose to place the object from.")
 SubClassOf(:CRAMObjectUndeliverable :CRAMHighLevelFailure)
-SubClassOf(:CRAMObjectUndeliverable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMObjectUndeliverable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure)))
 
 # Class: :CRAMObjectUnfetchable (:CRAMObjectUnfetchable)
 
 AnnotationAssertion(rdfs:comment :CRAMObjectUnfetchable "Thrown when no base positioning can assure a reachable pose to grasp the object from.")
 SubClassOf(:CRAMObjectUnfetchable :CRAMHighLevelFailure)
-SubClassOf(:CRAMObjectUnfetchable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMObjectUnfetchable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure)))
 
 # Class: :CRAMObjectUnreachable (:CRAMObjectUnreachable)
 
 AnnotationAssertion(rdfs:comment :CRAMObjectUnreachable "Thrown when no IK found for particular base pose.")
 SubClassOf(:CRAMObjectUnreachable :CRAMHighLevelFailure)
-SubClassOf(:CRAMObjectUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMObjectUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure)))
 
 # Class: :CRAMPerceptionLowLevelFailure (:CRAMPerceptionLowLevelFailure)
 
 AnnotationAssertion(rdfs:comment :CRAMPerceptionLowLevelFailure "Low-level failure produced while perceiving, i.e. some kind of hardware issue.")
 SubClassOf(:CRAMPerceptionLowLevelFailure :CRAMLowLevelFailure)
-SubClassOf(:CRAMPerceptionLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#SensorFailure>)))
+SubClassOf(:CRAMPerceptionLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:SensorFailure)))
 
 # Class: :CRAMPerceptionObjectNotFound (:CRAMPerceptionObjectNotFound)
 
 AnnotationAssertion(rdfs:comment :CRAMPerceptionObjectNotFound "Thrown when an attempt to find an object by perception fails -- and this can still be interpreted as the robot not looking in the right direction, as opposed to the object being absent.")
 SubClassOf(:CRAMPerceptionObjectNotFound :CRAMPerceptionLowLevelFailure)
-SubClassOf(:CRAMPerceptionObjectNotFound ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ObjectNotFound>)))
+SubClassOf(:CRAMPerceptionObjectNotFound ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ObjectNotFound)))
 
 # Class: :CRAMPerceptionObjectNotInWorld (:CRAMPerceptionObjectNotInWorld)
 
 AnnotationAssertion(rdfs:comment :CRAMPerceptionObjectNotInWorld "Thrown when an attempt to find an object by perception fails -- and this is because the object can be assumed absent or perhaps is known absent because of the setup of a simulation.")
 SubClassOf(:CRAMPerceptionObjectNotInWorld :CRAMPerceptionLowLevelFailure)
-SubClassOf(:CRAMPerceptionObjectNotInWorld ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ObjectUnavailable>)))
+SubClassOf(:CRAMPerceptionObjectNotInWorld ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ObjectUnavailable)))
 
 # Class: :CRAMSearchingFailed (:CRAMSearchingFailed)
 
 AnnotationAssertion(rdfs:comment :CRAMSearchingFailed "Thrown when searching plan completely gives up.")
 SubClassOf(:CRAMSearchingFailed :CRAMHighLevelFailure)
-SubClassOf(Annotation(rdfs:comment "The main message of this error signal is that a particular CRAM plan (search) has exhausted its \"retry\" failure handling procedures and therefore one can conclude the error is of a sustained nature.") :CRAMSearchingFailed ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#SustainedFailure>)))
+SubClassOf(Annotation(rdfs:comment "The main message of this error signal is that a particular CRAM plan (search) has exhausted its \"retry\" failure handling procedures and therefore one can conclude the error is of a sustained nature.") :CRAMSearchingFailed ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:SustainedFailure)))
 
 # Class: :CRAMTorsoGoalNotReached (:CRAMTorsoGoalNotReached)
 
 AnnotationAssertion(rdfs:comment :CRAMTorsoGoalNotReached "Thrown when the torso moved as a result of a torso action but the goal was not reached.")
 SubClassOf(:CRAMTorsoGoalNotReached :CRAMTorsoLowLevelFailure)
-SubClassOf(:CRAMTorsoGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ConfigurationNotReached>)))
+SubClassOf(:CRAMTorsoGoalNotReached ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ConfigurationNotReached)))
 
 # Class: :CRAMTorsoGoalUnreachable (:CRAMTorsoGoalUnreachable)
 
 AnnotationAssertion(rdfs:comment :CRAMTorsoGoalUnreachable "Thrown when the goal for the torso is computed to be unreachable.")
 SubClassOf(:CRAMTorsoGoalUnreachable :CRAMTorsoLowLevelFailure)
-SubClassOf(:CRAMTorsoGoalUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#ReachabilityFailure>)))
+SubClassOf(:CRAMTorsoGoalUnreachable ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ReachabilityFailure)))
 
 # Class: :CRAMTorsoLowLevelFailure (:CRAMTorsoLowLevelFailure)
 
 AnnotationAssertion(rdfs:comment :CRAMTorsoLowLevelFailure "Low-level failure produced while moving the torso, i.e. some kind of hardware issue.")
 SubClassOf(:CRAMTorsoLowLevelFailure :CRAMLowLevelFailure)
-SubClassOf(:CRAMTorsoLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy <http://www.ease-crc.org/ont/failure_and_recovery.owl#TorsoFailure>)))
+SubClassOf(:CRAMTorsoLowLevelFailure ObjectSomeValuesFrom(DUL:describes ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:TorsoFailure)))
+
+# Class: :Grasping (:Grasping)
+
+SubClassOf(:Grasping DUL:Task)
+
+# Class: :Looking (:Looking)
+
+SubClassOf(:Looking DUL:Task)
 
 
+SubClassOf(ObjectIntersectionOf(ObjectSomeValuesFrom(DUL:directlyFollows ObjectIntersectionOf(ObjectSomeValuesFrom(DUL:isClassifiedBy :Grasping) ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:SuccessfulCompletion))) ObjectSomeValuesFrom(DUL:isEventIncludedIn ObjectSomeValuesFrom(DUL:isDescribedBy :CRAMGripperClosedCompletely))) ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:ObjectLost))
+SubClassOf(ObjectIntersectionOf(ObjectSomeValuesFrom(DUL:directlyFollows ObjectIntersectionOf(ObjectSomeValuesFrom(DUL:isClassifiedBy :Looking) ObjectSomeValuesFrom(DUL:isClassifiedBy FAIL:SuccessfulCompletion))) ObjectSomeValuesFrom(DUL:isEventIncludedIn ObjectSomeValuesFrom(DUL:isDescribedBy :CRAMGripperClosedCompletely))) ObjectSomeValuesFrom(DUL:isClassifiedBy ObjectIntersectionOf(FAIL:SustainedFailure FAIL:ObjectPoseMisestimation)))
 AnnotationAssertion(rdfs:comment :CRAMActionlibActionTimedout "Actionlib action timeout was reached.")
 )
